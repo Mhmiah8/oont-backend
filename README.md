@@ -113,7 +113,7 @@ npm run start:dev
 docker-compose up --build
 ```
 
-2. # Run the seed script to load sample data
+2. Run the seed script to load sample data
    
 ```bash   
 docker compose exec app npm run prisma:seed
@@ -148,3 +148,5 @@ docker-compose logs -f postgres
 - `userId` is treated as a plain string.
 - Cart state is stored in PostgreSQL, not in-memory.
 - `OrderItem` stores `priceAt` and `productName` snapshots for historical consistency.
+
+Migrations run automatically on container startup; only the seed step must be run manually.
