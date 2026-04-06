@@ -113,8 +113,11 @@ npm run start:dev
 docker-compose up --build
 ```
 
-2. App URL: `http://localhost:3000`
-
+2. # Run the seed script to load sample data
+   
+```bash   
+docker compose exec app npm run prisma:seed
+```
 3. Swagger URL: `http://localhost:3000/api`
 
 Useful commands:
