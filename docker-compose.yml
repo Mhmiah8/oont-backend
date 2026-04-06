@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: oont-postgres
+    environment:
+      POSTGRES_USER: oont
+      POSTGRES_PASSWORD: oont123
+      POSTGRES_DB: oont_grocery
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'oont', '-d', 'oont_grocery']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: oont-app
+    ports:
+      - '3000:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://oont:oont123@postgres:5432/oont_grocery
+      PORT: 3000
+
+volumes:
+  postgres_data:
